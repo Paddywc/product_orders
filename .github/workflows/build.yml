@@ -51,4 +51,7 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           files: ${{ matrix.service }}/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          disable_search: true
+          verbose: true
           fail_ci_if_error: false
