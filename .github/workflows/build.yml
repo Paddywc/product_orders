@@ -9,7 +9,10 @@ on:
       - 'inventory-service/**'
       - 'payment-service/**'
       - 'ui-service/**'
+      - '.github/workflows/build.yml'
+      - 'readme.md'
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
