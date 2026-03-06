@@ -1,0 +1,47 @@
+name: Build and Test
+
+on:
+  push:
+    paths:
+      - 'auth-service/**'
+      - 'product-service/**'
+      - 'order-service/**'
+      - 'inventory-service/**'
+      - 'payment-service/**'
+      - 'ui-service/**'
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service:
+          - auth-service
+          - product-service
+          - order-service
+          - inventory-service
+          - payment-service
+          - ui-service
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Build and Test
+        run: mvn clean verify
+        working-directory: ${{ matrix.service }}
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: ${{ matrix.service }}/target/site/jacoco/jacoco.xml
+          fail_ci_if_error: false

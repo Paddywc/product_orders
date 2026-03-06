@@ -1,3 +1,9 @@
 [submodule "auth-service"]
 	path = auth-service
 	url = https://github.com/Paddywc/product_orders-auth-service
+[submodule "inventory-service"]
+	path = inventory-service
+	url = https://github.com/Paddywc/product_orders-inventory-service.git
+[submodule "order-service"]
+	path = order-service
+	url = https://github.com/Paddywc/product_orders-order-service

@@ -1,3 +1,9 @@
+![Build](https://github.com/Paddywc/product_orders/actions/workflows/build.yml/badge.svg)
+![Coverage](https://img.shields.io/codecov/c/github/Paddywc/product_orders)
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-4.x-brightgreen)
+![Docker](https://img.shields.io/badge/Docker-ready-blue)
+
 # Product Orders Platform
 
 A microservice-based e-commerce platform built with Spring Boot. It supports:
@@ -111,3 +117,128 @@ Secret environment variables are stored in Secrets Manager.
 ## Event Flow
 
 ![events-flow.png](readmeimg/events-flow.png)
+
+## Shared Event Catalog (Order / Payment / Inventory)
+
+Shared event contracts are defined in each service, along with other events:
+
+- `order-service/src/main/java/**/messaging/event/*`
+- `payment-service/src/main/java/**/messaging/event/*`
+- `inventory-service/src/main/java/**/messaging/event/*`
+
+### Cross-service conventions
+
+- `eventId` (UUID): unique event identity (idempotency key)
+- `orderId` (UUID): saga/business correlation key
+- `occurredAt` (Instant): event timestamp (UTC)
+
+### OrderCreatedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `totalAmountCents: long` (positive)
+- `currency: String`
+- `customerId: UUID`
+- `customerEmail: String` (email)
+- `customerAddress: String` (max 2000)
+- `occurredAt: Instant`
+- `items: List<OrderItem>` (non-empty)
+- 
+### OrderConfirmedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `occurredAt: Instant`
+
+### OrderCancelledEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `reason: CancellationReason`
+- `occurredAt: Instant`
+
+### PaymentCreatedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `paymentId: UUID`
+- `occurredAt: Instant`
+
+### PaymentCompletedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `paymentId: UUID`
+- `amountInCents: Long` (positive)
+- `currency: String`
+- `occurredAt: Instant`
+
+### PaymentFailedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `reason: String`
+- `occurredAt: Instant`
+
+### PaymentRefundedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `occurredAt: Instant`
+
+### InvalidPaymentMadeEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `paymentId: UUID`
+- `occurredAt: Instant`
+
+### InventoryReservedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `occurredAt: Instant`
+
+### InventoryReservationFailedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `reason: InventoryReservationFailedReason`
+- `failureMessage: String`
+- `occurredAt: Instant`
+
+### InventoryReleasedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `occurredAt: Instant`
+
+### InventoryConfirmedEvent
+
+Required fields:
+
+- `eventId: UUID`
+- `orderId: UUID`
+- `occurredAt: Instant`
