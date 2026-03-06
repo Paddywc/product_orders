@@ -7,3 +7,12 @@
 [submodule "order-service"]
 	path = order-service
 	url = https://github.com/Paddywc/product_orders-order-service
+[submodule "payment-service"]
+	path = payment-service
+	url = https://github.com/Paddywc/product_orders-payment-service
+[submodule "product-service"]
+	path = product-service
+	url = https://github.com/Paddywc/product_orders-product-service
+[submodule "ui-service"]
+	path = ui-service
+	url = https://github.com/Paddywc/product_orders-ui-service
