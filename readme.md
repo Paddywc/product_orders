@@ -1,5 +1,5 @@
 ![Build](https://github.com/Paddywc/product_orders/actions/workflows/build.yml/badge.svg)
-![Coverage](https://img.shields.io/codecov/c/github/Paddywc/product_orders)
+![Coverage](https://codecov.io/gh/Paddywc/product_orders/branch/main/graph/badge.svg)
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/SpringBoot-4.x-brightgreen)
 ![Docker](https://img.shields.io/badge/Docker-ready-blue)
@@ -145,7 +145,7 @@ Required fields:
 - `customerAddress: String` (max 2000)
 - `occurredAt: Instant`
 - `items: List<OrderItem>` (non-empty)
-- 
+
 ### OrderConfirmedEvent
 
 Required fields:
