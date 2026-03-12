@@ -3,11 +3,17 @@ name: Build and Test
 on:
   push:
     paths:
+      - 'auth-service'
       - 'auth-service/**'
+      - 'product-service'
       - 'product-service/**'
+      - 'order-service'
       - 'order-service/**'
+      - 'inventory-service'
       - 'inventory-service/**'
+      - 'payment-service'
       - 'payment-service/**'
+      - 'ui-service'
       - 'ui-service/**'
       - '.github/workflows/build.yml'
       - 'readme.md'
